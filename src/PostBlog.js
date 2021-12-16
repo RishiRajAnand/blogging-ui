@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ActionGroup, Button, Form, FormGroup, TextInput } from '@patternfly/react-core';
 import { Grid, GridItem } from '@patternfly/react-core';
 import axios from "axios";
 
-export function PostBlog() {
+export function PostBlog({ onPost }) {
 
     const [formState, setFormState] = useState({ author: "", name: "" });
-
+    
     function authorchanged(value) {
         setFormState({ ...formState, author: value })
     }
@@ -17,8 +17,8 @@ export function PostBlog() {
 
     function submitForm() {
         axios.post('http://localhost:8080/blogs/blog', formState).then(function (response) {
-            // handle success
-            console.log(response.data);
+           onPost(true);
+    
         }).catch(function (error) {
             // handle error
             console.log(error);
@@ -26,7 +26,6 @@ export function PostBlog() {
             .then(function () {
                 // always executed
             });
-
     }
 
     return (
