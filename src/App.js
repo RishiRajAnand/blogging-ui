@@ -1,16 +1,17 @@
 import '@patternfly/react-core/dist/styles/base.css';
-import axios from "axios";
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import './App.css';
 import { ListBlog } from './ListBlog';
 import { PostBlog } from './PostBlog';
 
 function App() {
-
-  const [wakeUp, setWakeUp] = useState(false);
+  const [wakeUp, setWakeUp] = useState(-1);
+  function onPostHandler(params) {
+    setWakeUp(params);
+  }
   return (
     <div className="App">
-      <PostBlog onPost={() => { setWakeUp(true) }} />
+      <PostBlog onChange={onPostHandler} />
       <ListBlog wakeUp={wakeUp} />
     </div>
   );
